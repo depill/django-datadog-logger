@@ -2,6 +2,7 @@
 Django DataDog Logger
 =====================
 
+## Simple change to the datadog logger that does not include django-rest-framework since we don't use it, and use django-ninja
 
 .. image:: https://img.shields.io/pypi/v/django-datadog-logger.svg
         :target: https://pypi.python.org/pypi/django-datadog-logger
