@@ -8,8 +8,6 @@ from django.conf import settings
 from django.core.exceptions import DisallowedHost
 from django.http.request import split_domain_port
 from django.urls import resolve, NoReverseMatch, Resolver404
-from rest_framework.compat import unicode_http_header
-from rest_framework.exceptions import AuthenticationFailed
 
 from django_datadog_logger.encoders import SafeJsonEncoder
 from django_datadog_logger.celery import get_task_name, get_celery_request
@@ -33,6 +31,11 @@ EXCLUDE_FROM_EXTRA_ATTRS = {
     "sql",
 }
 
+def unicode_http_header(value):
+    # Coerce HTTP header value to unicode.
+    if isinstance(value, bytes):
+        return value.decode('iso-8859-1')
+    return value
 
 def get_client_ip(request):
     x_forwarded_for = request.META.get("HTTP_X_FORWARDED_FOR")
